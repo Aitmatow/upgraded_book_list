@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block menu %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Действия
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'article_edit' object.pk%} ">Редактирование</a>
+            {% if not object.comments.count %}
+            <a class="dropdown-item" href="{% url 'article_delete' object.pk%} ">Удаление</a>
+            {% endif %}
+        </div>
+      </li>
+{% endblock %}
+{% block content %}
+   <div class="container">
+       <div class="card text-center">
+          <div class="card-header">
+            Статья
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Наименование статьи: {{ object.title }}</h5>
+            <p class="card-text">
+              <p>Описание : {{ object.text }} </p>
+              <p>Автор: {{ object.author }} </p>
+              <p>Категория : {{ object.category }} </p>
+              <p>Дата создания : {{ object.created_at }} </p>
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            Последнее редактирование : {{ object.updated_at }}
+          </div>
+        </div>
+
+        <div class="card text-center">
+          <div class="card-header">
+            Комментарии к статье:
+          </div>
+          <div class="card">
+            <ul class="list-group list-group-flush">
+              {% for comment in object.comments.get_queryset|dictsortreversed:"created_at"  %}
+                  <li class="list-group-item">
+                      <p>Автор : {{ comment.author }}</p>
+                      <p>Текст : {{ comment.text }}</p>
+                  <a href="{% url 'comments_view' comment.pk %}" class="btn btn-info" style="width: 40px"><span class="fa fa-info"></span></a>
+                  <a href="{% url 'comments_edit' comment.pk %}" class="btn btn-info" style="width: 40px"><span class="fa fa-edit"></span></a>
+                  <a href="{% url 'comments_delete' comment.pk %}" class="btn btn-info" style="width: 40px"><span class="fa fa-trash"></span></a>
+                  </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+   </div>
+{% endblock %}
