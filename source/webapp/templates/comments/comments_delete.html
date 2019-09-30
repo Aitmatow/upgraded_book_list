@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.name }}{% endblock %}
+{% block menu %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Действия
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'comments_edit' object.pk%} ">Редактирование</a>
+        </div>
+      </li>
+{% endblock %}
+{% block content %}
+   <div class="container">
+       <div class="card text-center">
+          <div class="card-header">
+            Удаление
+          </div>
+          <div class="card-body">
+                <form method="post">{% csrf_token %}
+                    <p>Вы уверены что хотите удалить комментарий "{{ object }}" ? </p>
+                <input type="submit" value="Подтвердить" class="btn btn-danger"/>
+                <a href="{% url 'comments_list' %}" class="btn btn-primary">Отмена</a>
+            </form>
+          </div>
+        </div>
+   </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block menu %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Действия
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'comments_edit' object.pk%} ">Редактирование</a>
+            <a class="dropdown-item" href="{% url 'comments_delete' object.pk%} ">Удаление</a>
+        </div>
+      </li>
+{% endblock %}
+{% block content %}
+   <div class="container">
+       <div class="card text-center">
+          <div class="card-header">
+            Комментарий к статье: {{ object.article }}
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <p>Описание : {{ object.text }} </p>
+              <p>Автор: {{ object.author }} </p>
+              <p>Дата создания : {{ object.created_at }} </p>
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            Последнее редактирование : {{ object.updated_at }}
+          </div>
+        </div>
+   </div>
+{% endblock %}
