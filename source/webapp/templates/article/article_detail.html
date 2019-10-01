@@ -36,6 +36,23 @@
 
         <div class="card text-center">
           <div class="card-header">
+            Добавление нового комментария :
+          </div>
+          <div class="card">
+            <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                      <form method="post"> {% csrf_token %}
+                          <p>Автор : <input type="text" name="author" value="Аноним"></p>
+                          <p>Текст : <textarea name="text" rows="5" cols="90" required></textarea></p>
+                      <input type="submit" class="btn-primary" value="Подтвердить" />
+                      </form>
+                  </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card text-center">
+          <div class="card-header">
             Комментарии к статье:
           </div>
           <div class="card">
@@ -43,7 +60,7 @@
               {% for comment in object.comments.get_queryset|dictsortreversed:"created_at"  %}
                   <li class="list-group-item">
                       <p>Автор : {{ comment.author }}</p>
-                      <p>Текст : {{ comment.text }}</p>
+                      <div class="pre">Текст : {{ comment.text}}</div>
                   <a href="{% url 'comments_view' comment.pk %}" class="btn btn-info" style="width: 40px"><span class="fa fa-info"></span></a>
                   <a href="{% url 'comments_edit' comment.pk %}" class="btn btn-info" style="width: 40px"><span class="fa fa-edit"></span></a>
                   <a href="{% url 'comments_delete' comment.pk %}" class="btn btn-info" style="width: 40px"><span class="fa fa-trash"></span></a>

@@ -47,3 +47,6 @@ a.button2 {
   right: 0;
   bottom: 10%;
 }
+.pre{
+  white-space: pre-wrap;
+}
