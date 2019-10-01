@@ -1,6 +1,6 @@
 from django.urls import path
 
-from webapp.views import CommentList, CommentCreate, CommentDelete, CommentUpdate, CommentDetail
+from webapp.views.comment_views import CommentList, CommentCreate, CommentDelete, CommentUpdate, CommentDetail
 
 urlpatterns = [
     path('', CommentList.as_view(), name='comments_list'),
