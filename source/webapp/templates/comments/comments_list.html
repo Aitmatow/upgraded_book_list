@@ -2,6 +2,9 @@
 {% block content %}
     <h1 class="bg-info text-white text-center">Комментарии:</h1>
     {% csrf_token %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
     <div class="card-deck text-center">
             {% for comments in object_list|dictsortreversed:"created_at" %}
                 <div class="card">
